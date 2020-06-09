@@ -1,2 +1,4 @@
 # tatami
-Shodan API tool. 
+Shodan API tool.
+
+:) 
