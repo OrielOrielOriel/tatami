@@ -56,7 +56,7 @@ def loadTargets(parserMetavar):
 def getHostInfo(api_key, targets):
 
 	for target in targets:
-		yield requests.get(f'https://api.shodan.io/shodan/host/{target}?key={api_key}').text
+		yield requests.get(f'https://api.shodan.io/shodan/host/{target[0]}?key={api_key}').text
 
 
 def main(): 
@@ -75,12 +75,19 @@ def main():
 
 	targets = [parser.target] if parser.target else loadTargets(parser.target_file)
 	results = [result for result in getHostInfo(parser.api_key, targets)]
-	results = results[0]
-	jsonobj = json.loads(results)
 	current_time = time.strftime(r"%m/%d/%Y")
-	openports = jsonobj["ports"]
-	for i in openports:
-		print(jsonobj["ip_str"], "\t", jsonobj["hostnames"], "\t", jsonobj["os"], "\t", jsonobj["data"][0]["transport"], "\t", i, "\t\t", current_time, "\t Shodan\tPassive")
+
+	for result in results:
+		jsonobj = json.loads(result)
+
+		try:
+			openports = jsonobj["ports"]
+
+			for port in openports:
+				print(jsonobj["ip_str"], "\t", jsonobj["hostnames"], "\t", jsonobj["os"], "\t", jsonobj["data"][0]["transport"], "\t", port, "\t\t", current_time, "\t Shodan\tPassive")
+
+		except KeyError:
+			pass
 
 if __name__ == '__main__':
 	main()
