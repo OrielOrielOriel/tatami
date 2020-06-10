@@ -6,6 +6,9 @@ import sys
 import tablib
 import json
 import requests
+import csv
+import pandas
+import time
 
 BANNER = """
 Sup
@@ -72,11 +75,12 @@ def main():
 
 	targets = [parser.target] if parser.target else loadTargets(parser.target_file)
 	results = [result for result in getHostInfo(parser.api_key, targets)]
-	
-	potato = json.loads(results[0])
-
-	print(potato["data"])
-
+	results = results[0]
+	jsonobj = json.loads(results)
+	current_time = time.strftime(r"%m/%d/%Y")
+	openports = jsonobj["ports"]
+	for i in openports:
+		print(jsonobj["ip_str"], "\t", jsonobj["hostnames"], "\t", jsonobj["os"], "\t", jsonobj["data"][0]["transport"], "\t", i, "\t\t", current_time, "\t Shodan\tPassive")
 
 if __name__ == '__main__':
 	main()
