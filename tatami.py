@@ -3,11 +3,8 @@
 import argparse
 import pathlib
 import sys
-import tablib
 import json
 import requests
-import csv
-import pandas
 import time
 
 BANNER = """
