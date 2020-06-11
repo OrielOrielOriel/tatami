@@ -38,10 +38,10 @@ def parseArguments():
 		help='A file containing a newline delimited list of target IPs. Use -t to specify a single target.'
 	)
 
-	parser.add_argument('-o', '--output',
-		metavar='outfile',
+	parser.add_argument('-o', '--options',
+		metavar='options',
 		type=str,
-		help='The filename to output to.'
+		help='Data to be retrieved.'
 	)
 
 	return parser
@@ -54,9 +54,16 @@ def loadTargets(parserMetavar):
 
 
 def getHostInfo(api_key, targets):
-
 	for target in targets:
 		yield requests.get(f'https://api.shodan.io/shodan/host/{target[0]}?key={api_key}').text
+
+
+def yieldData(dataset, options):
+	for option in options:
+		try: 
+			yield str(dataset[option])
+		except KeyError:
+			yield "N/A"
 
 
 def main(): 
@@ -77,17 +84,24 @@ def main():
 	results = [result for result in getHostInfo(parser.api_key, targets)]
 	current_time = time.strftime(r"%m/%d/%Y")
 
+	options = ["ip_str", "port", "info"] 
+
 	for result in results:
 		jsonobj = json.loads(result)
 
 		try:
-			openports = jsonobj["ports"]
+			for dataset in jsonobj["data"]:
+				row = "\t".join(
+					[datapoint for datapoint in yieldData(dataset, options)]
+				)
 
-			for port in openports:
-				print(jsonobj["ip_str"], "\t", jsonobj["hostnames"], "\t", jsonobj["os"], "\t", jsonobj["data"][0]["transport"], "\t", port, "\t\t", current_time, "\t Shodan\tPassive")
+				print(row)
 
 		except KeyError:
 			pass
+			# No open ports found.
+
+
 
 if __name__ == '__main__':
 	main()
