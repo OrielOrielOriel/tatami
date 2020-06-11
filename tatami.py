@@ -54,7 +54,7 @@ def parseArguments():
 		type=str,
 		action='extend',
 		nargs='+',
-		help='Data to be retrieved. Common fields ip_str=Host IP address, hostnames=Host name, port=Open ports, product=Product version on the particular port, banner=Banner from a connection to the port.'
+		help='Data to be retrieved. Common fields ip_str=Host IP address, hostnames=Host name, port=Open ports, product=Product version on the particular port, banner=Banner from a connection to the port. date=Current date.'
 	)
 
 	return parser
@@ -102,25 +102,24 @@ yields "N/A"
 def yieldData(dataset: dict, options: list):
 	for option in options:
 		try:
-			if option == "hostnames":
-				if not dataset[option]:
-					yield "N/A"
+			if option == "date":
+				current_date = time.strftime(r"%m/%d/%Y")
+				yield str(current_date)
 
-				else:
+			if option == "hostnames":
+				if dataset[option]:
 					yield str(dataset[option][0])
 
-			if option == "current_time":
-				yield str(current_time)
+				else:
+					yield "N/A"
 
 			else:
 				yield str(dataset[option])
 
 		except KeyError:
-			yield "N/A"
+			pass
 
-
-def main(): 
-
+def main():
 	parser = parseArguments() 
 
 	# If no CLI arguments are provided, print the argparse help screen. 
@@ -135,7 +134,6 @@ def main():
 
 	targets = [parser.target] if parser.target else loadTargets(parser.target_file)
 	results = [result for result in getHostInfo(parser.api_key, targets)]
-	current_time = time.strftime(r"%m/%d/%Y")
 
 	# Iterates over each API result
 	for result in results:
