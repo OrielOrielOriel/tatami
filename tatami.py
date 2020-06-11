@@ -117,7 +117,10 @@ def yieldData(dataset: dict, options: list):
 				yield str(dataset[option])
 
 		except KeyError:
-			pass
+			if option == "date":
+				pass
+			else:
+				yield "N/A"
 
 def main():
 	parser = parseArguments() 
