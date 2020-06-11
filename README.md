@@ -24,7 +24,7 @@ optional arguments:
                         A file containing a newline delimited list of target IPs. Use -t to specify a single target.
   -o options [options ...], --options options [options ...]
                         Data to be retrieved. Common fields ip_str=Host IP address, hostnames=Host name, port=Open ports, product=Product version on the particular port, banner=Banner from a connection to the port. date=Current date.
-                        
+
 
 ## Examples
 ```
@@ -49,4 +49,4 @@ In the text above you can see that tatami is retrieving data for 3 IPs, it is re
 
 ![Copying output from a text file](/photos/copying.png)
 
-![Pasting output into a spreadsheet. Each field goes into a separate cell](/photos/pasting.png)
+![Pasting output into a spreadsheet. Each field goes into a separate cell](/photos/pasted.png)
