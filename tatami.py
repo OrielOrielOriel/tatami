@@ -135,7 +135,7 @@ def main():
 
 	targets = [parser.target] if parser.target else loadTargets(parser.target_file)
 	results = [result for result in getHostInfo(parser.api_key, targets)]
-	# current_time = time.strftime(r"%m/%d/%Y")
+	current_time = time.strftime(r"%m/%d/%Y")
 
 	# Iterates over each API result
 	for result in results:
