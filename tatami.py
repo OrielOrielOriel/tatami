@@ -41,6 +41,8 @@ def parseArguments():
 	parser.add_argument('-o', '--options',
 		metavar='options',
 		type=str,
+		action='extend',
+		nargs='+',
 		help='Data to be retrieved.'
 	)
 
@@ -60,8 +62,17 @@ def getHostInfo(api_key, targets):
 
 def yieldData(dataset, options):
 	for option in options:
-		try: 
-			yield str(dataset[option])
+		try:
+			if option != "hostnames":
+				yield str(dataset[option])
+
+			else:
+				if not dataset[option]:
+					yield "N/A"
+
+				else:
+					yield str(dataset[option][0])
+
 		except KeyError:
 			yield "N/A"
 
@@ -82,9 +93,7 @@ def main():
 
 	targets = [parser.target] if parser.target else loadTargets(parser.target_file)
 	results = [result for result in getHostInfo(parser.api_key, targets)]
-	current_time = time.strftime(r"%m/%d/%Y")
-
-	options = ["ip_str", "port", "info"] 
+	# current_time = time.strftime(r"%m/%d/%Y")
 
 	for result in results:
 		jsonobj = json.loads(result)
@@ -92,7 +101,7 @@ def main():
 		try:
 			for dataset in jsonobj["data"]:
 				row = "\t".join(
-					[datapoint for datapoint in yieldData(dataset, options)]
+					[datapoint for datapoint in yieldData(dataset, parser.options)]
 				)
 
 				print(row)
@@ -100,8 +109,7 @@ def main():
 		except KeyError:
 			pass
 			# No open ports found.
-
-
+			
 
 if __name__ == '__main__':
 	main()
