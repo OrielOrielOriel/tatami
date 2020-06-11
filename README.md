@@ -2,13 +2,6 @@
 Shodan API tool.
 
 usage: tatami.py [-h] [-a api_key] [-t target] [-tf target_file] [-o options [options ...]]
-
-  ████████╗ █████╗ ████████╗ █████╗ ███╗   ███╗██╗\n
-  ╚══██╔══╝██╔══██╗╚══██╔══╝██╔══██╗████╗ ████║██║\n
-     ██║   ███████║   ██║   ███████║██╔████╔██║██║\n
-     ██║   ██╔══██║   ██║   ██╔══██║██║╚██╔╝██║██║\n
-     ██║   ██║  ██║   ██║   ██║  ██║██║ ╚═╝ ██║██║\n
-     ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝\n
                                                 
 Developed by Oriel & Spopy
 github.com/OrielOrielOriel
