@@ -48,6 +48,6 @@ optional arguments:
 
 In the text above you can see that tatami is retrieving data for 3 IPs, it is retrieving the fields: ip_str, hostnames, product, info, port. When it cannot find data for a given field, it puts in "N/A." The different fields are tab delimited and can therefore be easily pasted into a spreadsheet. The final command begins this process by redirecting the output into a file to be easily copied. The following images show the copying of the data, and then the pasting of the data into a spreadsheet. 
 
-![Copying output from a text file](/photos/copying.png)
+![Copying output from a text file](/.photos/copying.png)
 
-![Pasting output into a spreadsheet. Each field goes into a separate cell](/photos/pasted.png)
+![Pasting output into a spreadsheet. Each field goes into a separate cell](/.photos/pasted.png)
