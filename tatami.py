@@ -20,6 +20,8 @@ BANNER = """
 Developed by Oriel & Spopy
 github.com/OrielOrielOriel
 github.com/sq00ky
+
+Note: For tab delimiting to function properly when pasted to Excel. Output must be redirected or tee'd into a file then copied from there. Do not copy from the terminal.
 """
 
 #  Defines path as the parent directory of the script + the character '/'
