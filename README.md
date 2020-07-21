@@ -15,6 +15,8 @@ Developed by Oriel & Spopy
 github.com/OrielOrielOriel
 github.com/sq00ky
 
+Note: For tab delimiting to function properly when pasted to Excel. Output must be redirected or tee'd into a file then copied from there. Do not copy from the terminal.
+
 optional arguments:
   -h, --help            show this help message and exit
   -a api_key, --api-key api_key
